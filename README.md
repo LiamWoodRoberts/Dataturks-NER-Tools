@@ -1,7 +1,7 @@
 # Getting Started:
 This repo is intended to work with the Dataturks NER annotation service.
 
-### Requirements:
+## Requirements:
 
 Environment can be set up using the following CL code:
 
@@ -38,26 +38,32 @@ Once you’ve labelled enough data you can download it by:
 
 ## Working with this Repo
 
-The code for this repo is split up into three main files:
+The code for working with the Dataturks service is split up into three main files:
 
-#### 1. *formatting.py*
+## 1. *formatting.py*
 
-This handles formatting .txt and .tsv dataturks for use in model training and predictions with the <code> format_labelled_data() </code> and <code>format_unlabelled_data()</code> functions.
+This file is called by the others to format unlabelled and labelled data before passing it to a CRF model.
 
-For example with unlabelled data:
-![](images/unlabelled_data.png)
+You can use format_unlabelled_data() for .txt files formatted for upload to Dataturks:
 
-And for labelled data:
+![](images/unlabelled_data_code.png)
+
+And you can use format_labelled_data() for data that has been annotated and downloaded as .tsv from dataturks:
+
 ![](images/labelled_data_code.png)
 
-#### 2. *training.py*
+## 2. *training.py*
 
-This will train, evaluate and save a CRF model using any labelled .tsv file you give it using the <code>train_crf()</code> function. 
+You can use training.py to train and evaluate CRF models with labelled data from Dataturks. Simply call the <code>train_crf()</code> function and pass it the file name to get a baseline CRF model as well as information on performance. 
 
 ![](images/train_crf_code.png)
 
-#### 3. *pre_annotate.py*
+![](images/eval_code.png)
 
-This will load a saved CRF model and use it to make predictions for unlabelled data. Simply pass in the saved CRF model, the unlabelled file and the new save file to the function <code>pre_annotate_unlabelled()</code> and the script will pre-annotate your data and format it so it can be immediately uploaded to Dataturks.
+## 3. *pre_annotate.py*
+
+This will load a saved CRF model (from <code>train_crf()</code>) and use it to make predictions for unlabelled data. Simply pass in the saved CRF model, the unlabelled file and the name of the new save file to the function <code>pre_annotate_unlabelled()</code> and the script will pre-annotate your data and format it so it can be immediately uploaded to Dataturks.
 
 ![](images/pre_annotate_code.png)
+
+For a notebook version of this walkthrough see "Sample Workflow.ipynb"
