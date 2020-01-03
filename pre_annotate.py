@@ -84,7 +84,7 @@ def write_json(file,data,ignore_tags):
     title(f"Annotations Saved to: {file}")
     return
 
-def smart_predict(model_path,text_file,save_file,ignore_tags=["O"]):
+def pre_annotate_unlabelled(model_path,text_file,save_file,ignore_tags=["O"]):
     '''
     Inputs:
     
@@ -110,6 +110,8 @@ def smart_predict(model_path,text_file,save_file,ignore_tags=["O"]):
     crf = load_crf(model_path)
     data = create_dataset(crf,seqs)
     write_json(save_file,data,ignore_tags)
+    print("\nSample Raw Text:")
+    print(' '.join([a for a,b in seqs[0]]))
     print("\nSample Prediction:")
     print(data[0])
     print("\n","-"*40)
@@ -124,4 +126,4 @@ if __name__ == "__main__":
                 "BODY",
                 ]
     title("Testing Pre-Annotation...")
-    smart_predict(crf_path,unlabelled_file,save_file,ignore_tags)
+    pre_annotate_unlabelled(crf_path,unlabelled_file,save_file,ignore_tags)

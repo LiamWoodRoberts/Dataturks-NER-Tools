@@ -1,5 +1,3 @@
-
-
 from nltk import pos_tag
 
 # Formatting Labelled Data
